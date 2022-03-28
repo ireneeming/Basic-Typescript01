@@ -5,9 +5,9 @@ import { fetchCharacter } from './api';
 import { Character } from './api';
 
 function App() {
-  const [character, setCharacter] = React.useState({});
+  const [character, setCharacter] = React.useState<Character>({} as Character);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [characterId, setCharacerId] = React.useState(1);
+  const [characterId, setCharacterId] = React.useState(1);
 
   React.useEffect(() => {
     const fetchFromApi = async () => {
@@ -25,7 +25,15 @@ function App() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <Card name="minji" imgUrl="https://finalspaceapi.com/img/gary_goodspeed.webp" />
+        <>
+          <Card name={character.name} imgUrl={character.img_url} />
+          <button
+            onClick={() => {
+              setCharacterId(Math.floor(Math.random() * 10) + 1);
+            }}>
+            Random Character
+          </button>
+        </>
       )}
     </TS.Wrapper>
   );
